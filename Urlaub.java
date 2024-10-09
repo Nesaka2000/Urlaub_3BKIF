@@ -10,7 +10,7 @@ public class Urlaub
     private String ort;
     private int preis;
     private boolean allInklusiv;
-    
+    private boolean lastMinute;
     
     //Konstruktor
     public Urlaub (String neuOrt, int neuPreis, boolean neuAllInklusiv) {
