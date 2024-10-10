@@ -10,7 +10,6 @@ public class Urlaub
     private String ort;
     private int preis;
     private boolean allInklusiv;
-    private boolean lastMinute;
     
     //Konstruktor
     public Urlaub (String neuOrt, int neuPreis, boolean neuAllInklusiv) {
@@ -22,7 +21,7 @@ public class Urlaub
     public Urlaub () {
         setOrt("New York");
         setPreis(2000);
-        setAllInklusiv(false);
+        setAllInklusiv(true);
     }
     //Getters
     public String getOrt () {
@@ -38,12 +37,15 @@ public class Urlaub
     }
     
     //Setter
-    public void setOrt (String neuOrt) {
-        ort = neuOrt;
+    public void setOrt (String ort) {
+        this.ort = ort;
     }
     
-    public void setPreis (int neuPreis) {
-        preis = neuPreis;
+    public void setPreis (int preis) {
+        if(preis <= 0) {
+            throw new IllegalArgumentException("Fehler setPreis: muss größer als null sein. (" + preis + ")");
+        }
+        this.preis = preis;
     }
     
     public void setAllInklusiv (boolean neuAllInklusiv) {
@@ -51,15 +53,23 @@ public class Urlaub
     }
     
     //Weitere Methoden
-    public int preisReduktion (int aenderung) {
-        int neuPreis = preis - aenderung;
+    public int preisAenderung (int aenderung, char plusMinus) {
+        if (plusMinus != '+' && plusMinus != '-') {
+            throw new IllegalArgumentException ("Fehler preisAenderung: preis kann nur subtrahiert oder addiert werden. (" + plusMinus + ")");
+        }
+        int neuPreis;
+        if (plusMinus == '-') {
+        neuPreis = preis - aenderung;
+        } else {
+        neuPreis = preis + aenderung;
+        }
         setPreis(neuPreis);
         return neuPreis;
     }
     
     public void print () {
         System.out.print("Urlaubsort: " + ort + "\n" + 
-        "Preis: " + preis + "\n" + 
+        "Preis: " + preis + " EUR" + "\n" + 
         "Allinklusiv: " + allInklusiv);
     }
 
